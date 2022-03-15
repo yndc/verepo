@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/flowscan/repomaster-go/pkg/repo"
+	"github.com/flowscan/repomaster-go/pkg/semver"
 	"github.com/flowscan/repomaster-go/pkg/writer"
 )
 
@@ -69,10 +70,11 @@ func Get(app string) (*App, error) {
 }
 
 func generateAppJson(app string) *App {
+	v, _ := semver.Parse("v0.0.0-dev")
 	return &App{
 		ID:          app,
 		Name:        app,
 		Description: "",
-		Version:     "v0.0.0-dev",
+		Version:     v,
 	}
 }

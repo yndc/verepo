@@ -1,0 +1,7 @@
+# The default build command when not specified
+build: 
+  - docker build --build-arg APP_ID=${APP_ID} --tag ${APP_FULL_VERSION} .
+  - docker push ${APP_FULL_VERSION}
+
+# The default pre-release tag when none is specified 
+prerelease: dev

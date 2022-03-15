@@ -9,8 +9,11 @@ import (
 )
 
 func init() {
+	configPath := "./repomaster.yaml"
+	rootCmd.PersistentFlags().StringVarP(&configPath, "config", "c", "./repomaster.yaml", "verbose output")
 	rootCmd.PersistentFlags().BoolVarP(&config.Global.DryRun, "dry-run", "d", false, "Dry run")
 	rootCmd.PersistentFlags().BoolVarP(&config.Global.Verbose, "verbose", "v", false, "Verbose output")
+	config.Load(configPath)
 }
 
 var rootCmd = &cobra.Command{

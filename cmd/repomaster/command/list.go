@@ -19,12 +19,17 @@ var listCmd = &cobra.Command{
 		if err != nil {
 			PrintError(err)
 		}
-		for _, a := range apps {
-			fmt.Printf("- %s\n", a.ID)
-			if a.Name != a.ID {
-				fmt.Printf("  name: %s\n", a.Name)
+		if len(apps) > 0 {
+			fmt.Printf("apps:\n")
+			for _, a := range apps {
+				fmt.Printf("- %s\n", a.ID)
+				if a.Name != a.ID {
+					fmt.Printf("  name: %s\n", a.Name)
+				}
+				fmt.Printf("  version: %s\n", a.Version)
 			}
-			fmt.Printf("  version: %s\n", a.Version)
+		} else {
+			fmt.Println("no apps found")
 		}
 	},
 }
