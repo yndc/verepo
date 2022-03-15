@@ -4,8 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/flowscan/repomaster-go/pkg/config"
 	"github.com/spf13/cobra"
 )
+
+func init() {
+	rootCmd.PersistentFlags().BoolVarP(&config.Global.DryRun, "dry-run", "d", false, "Dry run")
+	rootCmd.PersistentFlags().BoolVarP(&config.Global.Verbose, "verbose", "v", false, "Verbose output")
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "repomaster",
