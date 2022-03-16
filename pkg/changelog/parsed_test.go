@@ -1,7 +1,6 @@
 package changelog_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/flowscan/repomaster-go/pkg/changelog"
@@ -9,5 +8,6 @@ import (
 
 func TestParser(t *testing.T) {
 	c, _ := changelog.Parse("../../cmd/" + "repomaster" + "/CHANGELOG.md")
-	fmt.Println(c)
+
+	c.Write("./omg.md", "ayy")
 }

@@ -213,10 +213,11 @@ func writeString(dst *string, line string) {
 		}
 	} else {
 		if len(*dst) > 0 {
-			n := *dst + " " + line
+			n := *dst + line
 			*dst = n
 		} else {
 			*dst = line
 		}
+		*dst = *dst + " "
 	}
 }
