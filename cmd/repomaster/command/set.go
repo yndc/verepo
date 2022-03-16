@@ -46,7 +46,7 @@ var setCmd = &cobra.Command{
 			{"git", "push", "origin", tag},
 		})
 
-		fmt.Printf("%s: %s -> %s", app, current.String(), target.String())
+		fmt.Printf("%s: %s -> %s\n", app, current.String(), target.String())
 
 		return nil
 	},
