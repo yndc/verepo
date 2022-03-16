@@ -9,10 +9,8 @@ import (
 )
 
 type App struct {
-	ID          string        `json:"-"`
-	Name        string        `json:"name"`
-	Description string        `json:"-"`
-	Version     semver.Parsed `json:"version"`
+	ID      string        `json:"-"`
+	Version semver.Parsed `json:"version"`
 }
 
 func ParseJson(app string, b []byte) (*App, error) {
@@ -32,9 +30,6 @@ func (a *App) Path() string {
 func (a *App) Valid() bool {
 	// check if path exists
 	if _, err := os.Stat(a.Path() + "/main.go"); err != nil {
-		return false
-	}
-	if _, err := os.Stat(a.Path() + "/app.json"); err != nil {
 		return false
 	}
 
