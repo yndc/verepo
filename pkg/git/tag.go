@@ -11,13 +11,13 @@ import (
 func Latest(app string) semver.Parsed {
 	o, err := exec.Exec("git", "tag", "-l", app+"/*")
 	if err != nil {
-		return semver.Invalid()
+		return semver.Zero()
 	}
 
 	if tag, ok := getLatestTag(o); ok {
 		return tag
 	}
-	return semver.Invalid()
+	return semver.Zero()
 }
 
 func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {

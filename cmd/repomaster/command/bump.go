@@ -26,10 +26,6 @@ var bumpCmd = &cobra.Command{
 		}
 		app := args[0]
 		current := git.Latest(app)
-		if current.Invalid {
-			return fmt.Errorf("current version (%s) is invalid", current.String())
-		}
-
 		var next semver.Parsed
 		if major, _ := cmd.Flags().GetBool("major"); major {
 			next = current.BumpMajor()

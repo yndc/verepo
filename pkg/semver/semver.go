@@ -21,6 +21,10 @@ func Invalid() Parsed {
 	}
 }
 
+func Zero() Parsed {
+	return Parsed{}
+}
+
 func Parse(v string) (p Parsed, err error) {
 	if v == "" || v[0] != 'v' {
 		return Invalid(), fmt.Errorf("missing v prefix")
