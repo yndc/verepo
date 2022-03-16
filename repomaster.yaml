@@ -4,4 +4,7 @@ build:
   - docker push ${APP_FULL_VERSION}
 
 # The default pre-release tag when none is specified 
-prerelease: dev
+prerelease: $BRANCH
+
+# A command to get the latest built version
+lastVersion: gcloud container images list-tags asia-southeast2-docker.pkg.dev/flowscan/nft-analytics/${APP_ID} --format json | jq '.[0].tags[-1] -r'

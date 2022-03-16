@@ -10,34 +10,37 @@ List all applications with their versions under the `cmd` folder
 
 ## Build 
 
-Command: `repomaster build`
+Command: `repomaster build <application>`
 
-Build all applications that has code changes. The image will be tagged with the format `[app]:[version]-[prerelease]+[commit]`. The version and pre-release tag will be taken from the `app.json` file found in the app folder. 
+Build the specified application using the provided build steps in `repomaster.yaml`. These environment variables will be exported into the build steps command:
+- `$APP_ID` the ID of the currently building application
+- `$APP_FULL_VERSION` the full semver of the application, with the format `v[major].[minor].[patch]-[prerelease]+[commit]`
+
+The version and pre-release tag will be taken from the `app.json` file found in the app folder. 
 - If `version` is not found, `repomaster` will use `v0.0.0` as the version
 - If `pre-release` tag is not found, `dev` will be added automatically as the pre-release tag 
 
-The only way to build an image with version as the only tag is by `repomaster release`
+The only way to build an image without a pre-release tag is by `repomaster release <application>`
 
-## Updating versions
+## Setting pre-release tags 
 
-### Manual
+Command: `repomaster prerelease <application> <prerelease>`
 
-Sub-command: `repomaster version update <application> <version> [parameters]`
+Set the pre-release tag of the specified application, without touching the version. This command will automatically make a commit for the updated version!
 
-`-a --all`
+## Setting version
+
+Sub-command: `repomaster set <application> <version> [parameters]`
+
 `-p --prerelease <name>`
 
 Updates the version of the application to the provided semver version. Set the `--prerelease <name>` parameter to change the pre-release tag for this version. This command will automatically make a commit for the updated version!
 
-### Bumping the version
+## Bumping version
 
-Command: `repomaster version bump <application>`
+Command: `repomaster bump <application> <?level>`
 
-`-n --minor`
-`-j --major`
-`-p --prerelease <name>`
-
-This command will bump the version based on semver semantics. Without a parameter, it will bump only the patch version. Use `--minor` to bump the minor version and `--major` to bump the major version. Set the `--prerelease <name>` parameter to change the pre-release tag for this version. This command will automatically make a commit for the version bump!
+This command will bump the version based on semver semantics. Without the `level` parameter set, it will bump only the patch version. Use `minor` to bump the minor version, `major` to bump the major version, and `prerelease` to bump the prerelease version. This command will automatically make a commit for the version bump!
 
 ## Releasing a version
 
@@ -46,7 +49,7 @@ Sub-command: `repomaster release <application>`
 Release the current commit as a stable version, these actions will be executed by `repomaster`:
 - Remove the pre-release tag and build metadata in the application's `app.json`
 - Commit the tags and build metadata removal
-- Tag the commit with the format `Release application:vX.Y.Z` without tags or metadata
+- Tag the commit with the format `[APP_ID]:vX.Y.Z` without tags or metadata
 - Build and push the application with the normal version
 
 Note:
