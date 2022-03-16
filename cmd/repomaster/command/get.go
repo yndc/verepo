@@ -16,7 +16,7 @@ var getCmd = &cobra.Command{
 	Short: "Get the latest version of the given app ID in the repository",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		v := git.LatestVer(args[0])
+		v := git.Latest(args[0])
 		if v.Invalid {
 			fmt.Printf("Version for %s not found or invalid\n", args[0])
 		} else {

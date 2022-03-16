@@ -10,41 +10,38 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(bumpCmd)
-	bumpCmd.Flags().Bool("minor", false, "")
-	bumpCmd.Flags().Bool("major", false, "")
-	bumpCmd.Flags().StringP("prerelease", "p", "", "")
+	rootCmd.AddCommand(preCmd)
 }
 
-var bumpCmd = &cobra.Command{
-	Use:   "bump",
-	Short: "Bump the version of the given app ID in the repository",
-	Args:  cobra.ExactArgs(1),
+var preCmd = &cobra.Command{
+	Use:   "pre",
+	Short: "Set the prerelease for the specified app",
+	Args:  cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !config.Global.DryRun && git.HasUncommittedChanges() {
 			return fmt.Errorf("this command cannot be run with uncommitted changes")
 		}
 		app := args[0]
+		targetP, err := semver.ParsePrerelease(args[1])
+		if err != nil {
+			return fmt.Errorf("invalid prerelease: %v", err)
+		}
 		current := git.Latest(app)
 		if current.Invalid {
 			return fmt.Errorf("current version (%s) is invalid", current.String())
 		}
 
-		var next semver.Parsed
-		if major, _ := cmd.Flags().GetBool("major"); major {
-			next = current.BumpMajor()
-		} else if minor, _ := cmd.Flags().GetBool("minor"); minor {
-			next = current.BumpMinor()
-		} else {
-			next = current.BumpPatch()
+		if semver.ComparePrerelease(targetP, current.Prerelease) <= 0 {
+			fmt.Println(semver.ComparePrerelease(current.Prerelease, targetP))
+			return fmt.Errorf(
+				"the target pre-release tag (%s) is on a lower precedence over the current pre-release (%s)",
+				targetP.String(),
+				current.Prerelease.String(),
+			)
 		}
 
-		if prerelease, _ := cmd.Flags().GetString("prerelease"); len(prerelease) > 0 {
-			p, err := semver.ParsePrerelease(prerelease)
-			if err == nil {
-				next.Prerelease = p
-			}
-		}
+		next := current
+		next.Prerelease = targetP
 
 		if err := git.SetVersion(app, current, next); err != nil {
 			return err

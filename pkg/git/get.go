@@ -7,7 +7,7 @@ import (
 	"github.com/flowscan/repomaster-go/pkg/semver"
 )
 
-func LatestVer(app string) semver.Parsed {
+func Latest(app string) semver.Parsed {
 	o, err := exec.Command("git", "tag", "-l", app+"/*").Output()
 	if err != nil {
 		return semver.Invalid()
@@ -37,7 +37,7 @@ func getLatestTag(o []byte) (semver.Parsed, bool) {
 		if err != nil {
 			continue
 		}
-		if semver.Compare(latest, p) > 0 {
+		if semver.Compare(p, latest) > 0 {
 			latest = p
 			found = true
 		}

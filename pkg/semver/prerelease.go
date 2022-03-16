@@ -50,9 +50,9 @@ func ComparePrerelease(left Prerelease, right Prerelease) int {
 
 	// the longer identifiers have higher precedence
 	if len(left) > len(right) {
-		return -1
+		return +1
 	}
-	return +1
+	return -1
 }
 
 func validateIdentifier(identifier string) error {
@@ -92,18 +92,18 @@ func comparePrereleaseIdentifier(left string, right string) int {
 		if rightInt, err := parseInt(right); err == nil {
 			// if both are numeric, compare numerically
 			if leftInt > rightInt {
-				return -1
-			} else if leftInt < rightInt {
 				return +1
+			} else if leftInt < rightInt {
+				return -1
 			} else {
 				return 0
 			}
 		}
 		// if left is numeric but right is not, string always wins
-		return +1
+		return -1
 	} else if isNumeric(right) {
 		// if left is string but right is numeric, string always wins
-		return -1
+		return +1
 	}
 
 	// compare lexigraphically

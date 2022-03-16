@@ -143,10 +143,10 @@ func Compare(left Parsed, right Parsed) int {
 			if len(right.Prerelease) > 0 {
 				return ComparePrerelease(left.Prerelease, right.Prerelease)
 			} else {
-				return 1
+				return -1
 			}
 		} else if len(right.Prerelease) > 0 {
-			return -1
+			return +1
 		}
 		return 0
 	}
@@ -156,21 +156,21 @@ func Compare(left Parsed, right Parsed) int {
 func CompareVersion(left Parsed, right Parsed) int {
 	// compare major
 	if left.Major > right.Major {
-		return -1
-	} else if left.Major < right.Major {
 		return +1
+	} else if left.Major < right.Major {
+		return -1
 	} else {
 		// compare minor
 		if left.Minor > right.Minor {
-			return -1
-		} else if left.Minor < right.Minor {
 			return +1
+		} else if left.Minor < right.Minor {
+			return -1
 		} else {
 			// compare patch
 			if left.Patch > right.Patch {
-				return -1
-			} else if left.Patch < right.Patch {
 				return +1
+			} else if left.Patch < right.Patch {
+				return -1
 			} else {
 				return 0
 			}
