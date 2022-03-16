@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(bumpCmd)
+	RootCmd.AddCommand(bumpCmd)
 	bumpCmd.Flags().Bool("minor", false, "")
 	bumpCmd.Flags().Bool("major", false, "")
 	bumpCmd.Flags().StringP("prerelease", "p", "", "")

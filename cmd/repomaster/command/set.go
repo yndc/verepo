@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(setCmd)
+	RootCmd.AddCommand(setCmd)
 }
 
 var setCmd = &cobra.Command{
