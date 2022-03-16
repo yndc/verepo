@@ -24,7 +24,7 @@ var setCmd = &cobra.Command{
 		app := args[0]
 		target, err := semver.Parse(args[1])
 		if err != nil {
-			return fmt.Errorf("unable to parse target version (%s): ", args[1], err.Error())
+			return fmt.Errorf("unable to parse target version (%s): %s", args[1], err.Error())
 		}
 		current := git.LatestVer(app)
 		if current.Invalid {
