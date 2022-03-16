@@ -8,22 +8,27 @@ import (
 	"github.com/flowscan/repomaster-go/pkg/config"
 )
 
-func Exec(name string, args ...string) *exec.Cmd {
+func Exec(name string, args ...string) ([]byte, error) {
 	if config.Global.DryRun {
 		fmt.Printf("exec: %s %s\n", name, strings.Join(args, " "))
-		return nil
+		return nil, nil
 	}
-	return exec.Command(name, args...)
+	return exec.Command(name, args...).Output()
 }
 
-func MultiExec(cmds [][]string) []*exec.Cmd {
-	res := make([]*exec.Cmd, len(cmds))
+// execute the given commands sequentially, stops on the first error
+func SeqExec(cmds [][]string) ([][]byte, error) {
+	outputs := make([][]byte, len(cmds))
+	var err error
 	for i, cmd := range cmds {
 		if len(cmd) > 1 {
-			res[i] = Exec(cmd[0], cmd[1:]...)
+			outputs[i], err = Exec(cmd[0], cmd[1:]...)
 		} else {
-			res[i] = Exec(cmd[0])
+			outputs[i], err = Exec(cmd[0])
+		}
+		if err != nil {
+			return outputs, err
 		}
 	}
-	return res
+	return outputs, nil
 }

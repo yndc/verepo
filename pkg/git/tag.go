@@ -20,7 +20,7 @@ func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {
 
 	tag := fmt.Sprintf(`%s/%s`, app, to.String())
 
-	exec.MultiExec([][]string{
+	exec.SeqExec([][]string{
 		{"git", "tag", tag},
 		{"git", "push", "origin", tag},
 	})
