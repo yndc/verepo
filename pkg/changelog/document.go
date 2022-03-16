@@ -18,6 +18,10 @@ type Section struct {
 	Changes     []string
 }
 
+func (s Section) Count() int {
+	return len(s.Additions) + len(s.Fixes) + len(s.Removals) + len(s.Changes)
+}
+
 type HistoricalSection struct {
 	Section
 	Version semver.Parsed

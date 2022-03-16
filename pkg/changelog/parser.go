@@ -30,35 +30,54 @@ const (
 )
 
 type parserState struct {
-	doc        *Document
-	section    section
-	subSection subSection
+	doc         *Document
+	section     section
+	subSection  subSection
+	pendingItem string
 }
 
 func (s *parserState) tryAddChange(line string) bool {
 	if s.subSection != subSectionInvalid {
 		sp := strings.Split(line, "- ")
-		if len(sp) == 2 {
+		if strings.HasPrefix(line, "- ") && len(sp) == 2 {
+			// new entry
 			item := sp[1]
-			var section *Section
-			if s.section == sectionUnreleased {
-				section = &s.doc.Unreleased
+			if len(s.pendingItem) > 0 {
+				s.addItem(s.pendingItem)
+				s.pendingItem = ""
+			}
+			s.pendingItem = item
+			return true
+		} else if len(s.pendingItem) > 0 {
+			if line == "" {
+				s.addItem(s.pendingItem)
+				s.pendingItem = ""
 			} else {
-				section = &s.doc.History[len(s.doc.History)-1].Section
+				s.pendingItem = s.pendingItem + " " + strings.Trim(line, " \n")
 			}
-			switch s.subSection {
-			case subSectionAdd:
-				section.Additions = append(section.Additions, item)
-			case subSectionFix:
-				section.Fixes = append(section.Fixes, item)
-			case subSectionChange:
-				section.Changes = append(section.Changes, item)
-			case subSectionRemove:
-				section.Removals = append(section.Removals, item)
-			}
+			return true
 		}
 	}
 	return false
+}
+
+func (s *parserState) addItem(item string) {
+	var section *Section
+	if s.section == sectionUnreleased {
+		section = &s.doc.Unreleased
+	} else {
+		section = &s.doc.History[len(s.doc.History)-1].Section
+	}
+	switch s.subSection {
+	case subSectionAdd:
+		section.Additions = append(section.Additions, item)
+	case subSectionFix:
+		section.Fixes = append(section.Fixes, item)
+	case subSectionChange:
+		section.Changes = append(section.Changes, item)
+	case subSectionRemove:
+		section.Removals = append(section.Removals, item)
+	}
 }
 
 func (s *parserState) tryParseSectionHeader(line string) (bool, error) {
@@ -80,6 +99,7 @@ func (s *parserState) tryParseSectionHeader(line string) (bool, error) {
 			Date:    date,
 			Section: Section{},
 		})
+		return true, nil
 	}
 	return false, nil
 }
@@ -106,6 +126,11 @@ func (s *parserState) tryParseSubsectionHeader(line string) bool {
 	return false
 }
 
+func (s *parserState) tryParseReferences(line string) bool {
+	matched, _ := regexp.MatchString(`\[(.+)\]: (.+)`, line)
+	return matched
+}
+
 func Parse(path string) (*Document, error) {
 	file, err := os.Open(path)
 	if err != nil {
@@ -130,6 +155,9 @@ func Parse(path string) (*Document, error) {
 			} else if err != nil {
 				return nil, parserErr(i, err)
 			}
+			if state.tryParseReferences(line) {
+				continue
+			}
 			writeString(&state.doc.Description, line)
 		case sectionUnreleased:
 			if ok, err := state.tryParseSectionHeader(line); ok {
@@ -143,6 +171,9 @@ func Parse(path string) (*Document, error) {
 			if ok := state.tryAddChange(line); ok {
 				continue
 			}
+			if state.tryParseReferences(line) {
+				continue
+			}
 			writeString(&state.doc.Unreleased.Description, line)
 		case sectionHistory:
 			if ok, err := state.tryParseSectionHeader(line); ok {
@@ -154,6 +185,9 @@ func Parse(path string) (*Document, error) {
 				continue
 			}
 			if ok := state.tryAddChange(line); ok {
+				continue
+			}
+			if state.tryParseReferences(line) {
 				continue
 			}
 			writeString(&state.doc.History[len(state.doc.History)-1].Section.Description, line)
@@ -172,10 +206,17 @@ func parserErr(line int, err error) error {
 }
 
 func writeString(dst *string, line string) {
-	if *dst == "" && line == "" {
-		return
+	if line == "" {
+		if len(*dst) > 0 {
+			n := *dst + "\n\n"
+			*dst = n
+		}
 	} else {
-		n := *dst + "\n" + line
-		*dst = n
+		if len(*dst) > 0 {
+			n := *dst + " " + line
+			*dst = n
+		} else {
+			*dst = line
+		}
 	}
 }

@@ -12,8 +12,8 @@ func init() {
 }
 
 var readCmd = &cobra.Command{
-	Use:   "read",
-	Short: "Read the changelog of the given app",
+	Use:   "log",
+	Short: "Log a new entry into the app's changelog",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		app := args[0]
