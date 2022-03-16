@@ -14,10 +14,10 @@ func init() {
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all applications with their versions under the `cmd` folder",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		apps, err := app.GetAll()
 		if err != nil {
-			PrintError(err)
+			return err
 		}
 		if len(apps) > 0 {
 			fmt.Printf("apps:\n")
@@ -31,5 +31,6 @@ var listCmd = &cobra.Command{
 		} else {
 			fmt.Println("no apps found")
 		}
+		return nil
 	},
 }
