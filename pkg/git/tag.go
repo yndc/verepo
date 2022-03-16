@@ -41,6 +41,23 @@ func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {
 	return nil
 }
 
+func ReleaseVersion(app string, current semver.Parsed) error {
+	if current.Invalid {
+		return fmt.Errorf("current version (%s) is invalid", current.String())
+	}
+
+	current.Prerelease = semver.Prerelease{}
+
+	tag := fmt.Sprintf(`%s/%s`, app, current.String())
+
+	exec.SeqExec([][]string{
+		{"git", "tag", tag},
+		{"git", "push", "origin", tag},
+	})
+
+	return nil
+}
+
 func getLatestTag(o []byte) (semver.Parsed, bool) {
 	sp := strings.Split(string(o), "\n")
 	found := false

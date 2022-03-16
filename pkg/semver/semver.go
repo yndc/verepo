@@ -86,7 +86,7 @@ func Parse(v string) (p Parsed, err error) {
 
 func (p Parsed) String() string {
 	b := strings.Builder{}
-	b.WriteString(fmt.Sprintf("v%d.%d.%d", p.Major, p.Minor, p.Patch))
+	b.WriteString(p.VersionString())
 	if len(p.Prerelease) > 0 {
 		b.WriteRune('-')
 		b.WriteString(p.Prerelease.String())
@@ -96,6 +96,10 @@ func (p Parsed) String() string {
 		b.WriteString(p.Build)
 	}
 	return b.String()
+}
+
+func (p Parsed) VersionString() string {
+	return fmt.Sprintf("v%d.%d.%d", p.Major, p.Minor, p.Patch)
 }
 
 func (p Parsed) MarshalJSON() ([]byte, error) {
