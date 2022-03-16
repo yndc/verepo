@@ -32,7 +32,7 @@ Updates the version of the application to the provided semver version. Set the `
 
 Command: `repomaster bump <application> <?level>`
 
-This command will bump the version based on semver semantics. Without the `level` parameter set, it will bump only the patch version. Use `minor` to bump the minor version, `major` to bump the major version, and `prerelease` to bump the prerelease version. This command will automatically make a commit for the version bump!
+This command will bump the version based on semver semantics. Without the `level` parameter set, it will bump only the patch version. Use `minor` to bump the minor version, `major` to bump the major version.
 
 ## Releasing a version
 
