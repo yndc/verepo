@@ -19,7 +19,7 @@ var setCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if git.HasUncommittedChanges() {
-			return fmt.Errorf("this command cannot be run with un-committed changes")
+			return fmt.Errorf("this command cannot be run with uncommitted changes")
 		}
 		app := args[0]
 		target, err := semver.Parse(args[1])

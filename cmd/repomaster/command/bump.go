@@ -23,7 +23,7 @@ var bumpCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if git.HasUncommittedChanges() {
-			return fmt.Errorf("this command cannot be run with un-committed changes")
+			return fmt.Errorf("this command cannot be run with uncommitted changes")
 		}
 		app := args[0]
 		current := git.LatestVer(app)
@@ -40,12 +40,17 @@ var bumpCmd = &cobra.Command{
 			next = current.BumpPatch()
 		}
 
-		tag := fmt.Sprintf(`"%s/%s"`, app, next.String())
+		tag := fmt.Sprintf(`%s/%s`, app, next.String())
 
-		exec.MultiExec([][]string{
+		res := exec.MultiExec([][]string{
 			{"git", "tag", tag},
 			{"git", "push", "origin", tag},
 		})
+		for _, r := range res {
+			o, err := r.Output()
+			fmt.Println(o)
+			fmt.Println(err)
+		}
 
 		fmt.Printf("%s: %s -> %s\n", app, current.String(), next.String())
 
