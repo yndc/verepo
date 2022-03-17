@@ -17,7 +17,7 @@ func init() {
 }
 
 var logCmd = &cobra.Command{
-	Use:   "log",
+	Use:   "log <message>",
 	Short: "Log a new entry into the project's changelog",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {

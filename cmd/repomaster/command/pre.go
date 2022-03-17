@@ -15,7 +15,7 @@ func init() {
 }
 
 var preCmd = &cobra.Command{
-	Use:   "pre",
+	Use:   "pre <tag>",
 	Short: "Set the prerelease for the specified project",
 	Args:  cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {

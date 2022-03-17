@@ -12,7 +12,7 @@ func usageTemplate() string {
 
 	}
 	return fmt.Sprintf(`Usage:
-repomaster %s <command>{{.UseLine}}{{if gt (len .Aliases) 0}} 
+repomaster %s {{or .Use "<command>"}}{{if gt (len .Aliases) 0}} 
 
 Aliases:
 {{.NameAndAliases}}{{end}}{{if .HasExample}}

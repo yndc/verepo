@@ -15,7 +15,7 @@ func init() {
 }
 
 var setCmd = &cobra.Command{
-	Use:   "set",
+	Use:   "set <version>",
 	Short: "Set the full version of the given project ID in the repository",
 	Args:  cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
