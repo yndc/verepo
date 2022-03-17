@@ -7,6 +7,8 @@
 - shit
 - STANDING HERE
 - I REALIZE
+- I REALIZE
+- STANDING HERE
 
 ## [0.0.10] - 2022-03-17
 
