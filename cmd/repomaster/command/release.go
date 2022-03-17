@@ -33,7 +33,7 @@ var releaseCmd = &cobra.Command{
 		if err != nil {
 			doc = &changelog.Document{}
 		}
-
+		doc.Release(current)
 		err = doc.Write(changelogPath, app)
 		if err != nil {
 			return err

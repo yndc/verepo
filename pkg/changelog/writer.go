@@ -99,6 +99,7 @@ func (d *Document) Write(path string, app string) error {
 			}
 		}
 	}
+	w.Flush()
 
 	origin := git.GetOrigin()
 	if d.Unreleased.Count() > 0 && len(d.History) > 0 {
