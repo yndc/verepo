@@ -1,15 +1,11 @@
 package git
 
 import (
-	"fmt"
-
 	"github.com/flowscan/repomaster-go/pkg/exec"
 )
 
 func Commit(m string) error {
-	o, err := exec.Exec("git", "commit", "-a", "-m", m)
-	fmt.Println(string(o))
-	fmt.Println(err)
+	_, err := exec.Exec("git", "commit", "-a", "-m", m)
 	if err != nil {
 		return err
 	}
