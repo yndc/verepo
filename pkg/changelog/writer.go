@@ -106,9 +106,9 @@ func (d *Document) Write(path string, app string) error {
 	}
 	for i, v := range vers {
 		if i < len(vers)-1 {
-			w.WriteString("[" + v.String() + "]: " + origin + "/compare/" + formatVersion(app, vers[i+1]) + "..." + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/compare/" + formatVersion(app, vers[i+1]) + "..." + formatVersion(app, v) + "\n")
 		} else {
-			w.WriteString("[" + v.String() + "]: " + origin + "/releases/tag/" + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/releases/tag/" + formatVersion(app, v) + "\n")
 		}
 		w.Flush()
 	}
