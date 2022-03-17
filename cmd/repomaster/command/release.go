@@ -39,12 +39,17 @@ var releaseCmd = &cobra.Command{
 			return err
 		}
 
+		// commit the changelog change
+		err = git.Commit(fmt.Sprintf("Release version %s/%s", app, current.VersionString()))
+		if err != nil {
+			return err
+		}
+
 		// add the git tag
 		if err := git.ReleaseVersion(app, current); err != nil {
 			return err
 		}
-
-		fmt.Printf("Released version %s:%s\n", app, current.VersionString())
+		fmt.Printf("Released version %s/%s\n", app, current.VersionString())
 
 		return nil
 	},
