@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.1.0] - 2022-03-17
 
 ### Added
 
@@ -21,3 +21,4 @@
 - Remove unused code
 - Remove unnecessary stuff
 
+[2.1.0]: https://github.com/flowscan/go-repomaster/releases/tag/repomaster/v2.1.0
