@@ -62,7 +62,7 @@ func (d *Document) Write(path string, app string) error {
 	}
 	for _, section := range d.History {
 		vers = append(vers, section.Version)
-		w.WriteString("## [" + section.Version.String() + "] - " + section.Date + "\n\n")
+		w.WriteString("## [" + section.Version.VersionStringNoV() + "] - " + section.Date + "\n\n")
 		w.WriteString(strings.Trim(section.Description, " \n"))
 		if len(section.Additions) > 0 {
 			w.WriteString("### Added\n\n")
@@ -106,9 +106,9 @@ func (d *Document) Write(path string, app string) error {
 	}
 	for i, v := range vers {
 		if i < len(vers)-1 {
-			w.WriteString("[" + formatVersion(app, v) + "]: " + origin + "/compare/" + formatVersion(app, vers[i+1]) + "..." + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.String() + "]: " + origin + "/compare/" + formatVersion(app, vers[i+1]) + "..." + formatVersion(app, v) + "\n")
 		} else {
-			w.WriteString("[" + formatVersion(app, v) + "]: " + origin + "/releases/tag/" + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.String() + "]: " + origin + "/releases/tag/" + formatVersion(app, v) + "\n")
 		}
 		w.Flush()
 	}

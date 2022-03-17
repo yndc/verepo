@@ -110,6 +110,10 @@ func (p Parsed) VersionString() string {
 	return fmt.Sprintf("v%d.%d.%d", p.Major, p.Minor, p.Patch)
 }
 
+func (p Parsed) VersionStringNoV() string {
+	return fmt.Sprintf("%d.%d.%d", p.Major, p.Minor, p.Patch)
+}
+
 func (p Parsed) MarshalJSON() ([]byte, error) {
 	if p.Invalid {
 		return nil, fmt.Errorf("semver is invalid")
