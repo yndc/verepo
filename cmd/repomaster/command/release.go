@@ -39,6 +39,7 @@ var releaseCmd = &cobra.Command{
 			Date:    time.Now().Format("2006-01-02"),
 			Section: doc.Unreleased,
 		}}, doc.History...)
+		doc.Unreleased = changelog.Section{}
 		err = doc.Write(changelogPath, app)
 		if err != nil {
 			return err

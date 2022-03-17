@@ -28,7 +28,7 @@
 - Updated tables
 - Updated tablesx
 
-## [v0.0.4-dev] - 2022-03-17
+## [v0.0.4] - 2022-03-17
 
 ### Added
 
