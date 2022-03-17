@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/flowscan/repomaster-go/cmd/repomaster/command/changelog"
 	"github.com/flowscan/repomaster-go/pkg/config"
 	"github.com/spf13/cobra"
 )
@@ -15,7 +14,6 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&config.Global.DryRun, "dry-run", "d", false, "Dry run")
 	RootCmd.PersistentFlags().BoolVarP(&config.Global.Verbose, "verbose", "v", false, "Verbose output")
 	config.Load(configPath)
-	RootCmd.AddCommand(changelog.RootCmd)
 }
 
 var RootCmd = &cobra.Command{

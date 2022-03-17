@@ -18,14 +18,15 @@ func (d *Document) Write(path string, app string) error {
 	w := bufio.NewWriter(f)
 	vers := make([]semver.Parsed, 0)
 
-	w.WriteString("# Changelog\n")
-	w.WriteString("\n")
-	w.WriteString(strings.Trim(d.Description, " \n"))
-	w.WriteString("\n\n")
-	w.Flush()
+	w.WriteString("# Changelog\n\n")
+	if len(d.Description) > 0 {
+		w.WriteString(strings.Trim(d.Description, " \n"))
+		w.WriteString("\n\n")
+		w.Flush()
+	}
 	if d.Unreleased.Count() > 0 {
 		w.WriteString("## [Unreleased]\n\n")
-		w.WriteString(d.Unreleased.Description)
+		w.WriteString(strings.Trim(d.Unreleased.Description, " \n"))
 		if len(d.Unreleased.Additions) > 0 {
 			w.WriteString("### Added\n\n")
 			for _, v := range d.Unreleased.Additions {
@@ -63,7 +64,7 @@ func (d *Document) Write(path string, app string) error {
 		vers = append(vers, section.Version)
 		if section.Count() > 0 {
 			w.WriteString("## [" + section.Version.String() + "] - " + section.Date + "\n\n")
-			w.WriteString(section.Description)
+			w.WriteString(strings.Trim(section.Description, " \n"))
 			if len(section.Additions) > 0 {
 				w.WriteString("### Added\n\n")
 				for _, v := range section.Additions {

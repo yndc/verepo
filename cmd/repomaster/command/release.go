@@ -2,7 +2,9 @@ package command
 
 import (
 	"fmt"
+	"time"
 
+	"github.com/flowscan/repomaster-go/pkg/changelog"
 	"github.com/flowscan/repomaster-go/pkg/config"
 	"github.com/flowscan/repomaster-go/pkg/git"
 	"github.com/spf13/cobra"
@@ -25,6 +27,17 @@ var releaseCmd = &cobra.Command{
 		if len(current.Prerelease) == 0 {
 			return fmt.Errorf("current version (%s) is already released", current.String())
 		}
+
+		// update the changelog
+		doc, err := changelog.Parse("./cmd/" + app + "/changelog.md")
+		if err != nil {
+			doc = &changelog.Document{}
+		}
+		doc.History = append([]changelog.HistoricalSection{{
+			Version: current,
+			Date:    time.Now().Format("2006-01-02"),
+			Section: doc.Unreleased,
+		}}, doc.History...)
 
 		if err := git.ReleaseVersion(app, current); err != nil {
 			return err
