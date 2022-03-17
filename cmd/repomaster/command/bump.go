@@ -37,9 +37,12 @@ var bumpCmd = &cobra.Command{
 
 		if prerelease, _ := cmd.Flags().GetString("prerelease"); len(prerelease) > 0 {
 			p, err := semver.ParsePrerelease(prerelease)
-			if err == nil {
-				next.Prerelease = p
+			if err != nil {
+				return err
 			}
+			next.Prerelease = p
+		} else if len(next.Prerelease) == 0 {
+			next.Prerelease = []string{"dev"}
 		}
 
 		if err := git.SetVersion(app, current, next); err != nil {
