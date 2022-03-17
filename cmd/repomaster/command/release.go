@@ -2,7 +2,6 @@ package command
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/flowscan/repomaster-go/pkg/changelog"
 	"github.com/flowscan/repomaster-go/pkg/config"
@@ -34,17 +33,13 @@ var releaseCmd = &cobra.Command{
 		if err != nil {
 			doc = &changelog.Document{}
 		}
-		doc.History = append([]changelog.HistoricalSection{{
-			Version: current.Version(),
-			Date:    time.Now().Format("2006-01-02"),
-			Section: doc.Unreleased,
-		}}, doc.History...)
-		doc.Unreleased = changelog.Section{}
+
 		err = doc.Write(changelogPath, app)
 		if err != nil {
 			return err
 		}
 
+		// add the git tag
 		if err := git.ReleaseVersion(app, current); err != nil {
 			return err
 		}
