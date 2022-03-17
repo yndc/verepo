@@ -26,7 +26,9 @@ func (d *Document) Write(path string, project string) error {
 	}
 	if d.Unreleased.Count() > 0 || len(d.Unreleased.Description) > 0 {
 		w.WriteString("## [Unreleased]\n\n")
-		w.WriteString(strings.Trim(d.Unreleased.Description, " \n") + "\n\n")
+		if len(d.Unreleased.Description) > 0 {
+			w.WriteString(strings.Trim(d.Unreleased.Description, " \n") + "\n\n")
+		}
 		if len(d.Unreleased.Additions) > 0 {
 			w.WriteString("### Added\n\n")
 			for _, v := range d.Unreleased.Additions {
@@ -63,7 +65,9 @@ func (d *Document) Write(path string, project string) error {
 	for _, section := range d.History {
 		vers = append(vers, section.Version)
 		w.WriteString("## [" + section.Version.VersionStringNoV() + "] - " + section.Date + "\n\n")
-		w.WriteString(strings.Trim(section.Description, " \n") + "\n\n")
+		if len(section.Description) > 0 {
+			w.WriteString(strings.Trim(section.Description, " \n") + "\n\n")
+		}
 		if len(section.Additions) > 0 {
 			w.WriteString("### Added\n\n")
 			for _, v := range section.Additions {
