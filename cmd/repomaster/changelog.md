@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- STANDING HERE
+- I REALIZE
+
 ## [0.1.4] - 2022-03-17
 
 ### Added
@@ -57,6 +64,7 @@
 - ayy lmao
 - shit
 
+[unreleased]: https://github.com/flowscan/go-repomaster/compare/v0.0.10...HEAD
 [0.1.4]: https://github.com/flowscan/go-repomaster/compare/repomaster/v0.1.1...repomaster/v0.1.4
 [0.1.1]: https://github.com/flowscan/go-repomaster/compare/repomaster/v0.1.0...repomaster/v0.1.1
 [0.1.0]: https://github.com/flowscan/go-repomaster/compare/repomaster/v0.0.10...repomaster/v0.1.0
