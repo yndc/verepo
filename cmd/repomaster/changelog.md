@@ -18,6 +18,8 @@
 - Updated tablesx
 - Fix buggs
 - lol bugs bunny
+- lol bugs bunny
+- lol bugs buasc
 
 ### Changed
 
