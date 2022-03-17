@@ -4,12 +4,11 @@ import (
 	"os"
 
 	"github.com/yndc/verepo/pkg/git"
-	"github.com/yndc/verepo/pkg/repo"
 )
 
 // Get all applications in the repository
 func GetAll() ([]Project, error) {
-	folders, err := os.ReadDir(repo.GetBasePath() + "/cmd")
+	folders, err := os.ReadDir("./cmd")
 	if err != nil {
 		return nil, err
 	}
@@ -17,7 +16,7 @@ func GetAll() ([]Project, error) {
 	projects := make([]Project, 0)
 
 	for _, v := range folders {
-		files, err := os.ReadDir(repo.GetBasePath() + "/cmd/" + v.Name())
+		files, err := os.ReadDir("./cmd/" + v.Name())
 		if err != nil {
 			return nil, err
 		}

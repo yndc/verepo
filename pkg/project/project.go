@@ -3,7 +3,6 @@ package project
 import (
 	"os"
 
-	"github.com/yndc/verepo/pkg/repo"
 	"github.com/yndc/verepo/pkg/semver"
 )
 
@@ -13,7 +12,7 @@ type Project struct {
 }
 
 func (a *Project) Path() string {
-	return repo.Path("/cmd/" + a.ID)
+	return ("./cmd/" + a.ID)
 }
 
 func (a *Project) Valid() bool {

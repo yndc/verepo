@@ -2,6 +2,8 @@
 
 A simple tool written in Golang to manage project versioning and changelog.
 
+> :warning: Don't use this. Currently this is for personal use only.
+
 ## Multi-mode
 
 `verepo` supports repositories with multiple projects in them. Currently it only supports Golang projects with `cmd/[project]` folder architecture.
