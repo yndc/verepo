@@ -52,6 +52,7 @@ var logCmd = &cobra.Command{
 			}
 			for _, msg := range logs {
 				f := firstWordLowercase(msg)
+				msg := capitalize(msg)
 				switch f {
 				case "add", "added":
 					doc.Unreleased.Additions = append(doc.Unreleased.Additions, msg)
@@ -90,4 +91,10 @@ var logCmd = &cobra.Command{
 
 func firstWordLowercase(line string) string {
 	return strings.ToLower(strings.Split(line, " ")[0])
+}
+
+func capitalize(line string) string {
+	sp := strings.Split(line, " ")
+	sp[0] = strings.Title(sp[0])
+	return strings.Join(sp, " ")
 }

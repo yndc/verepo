@@ -7,7 +7,7 @@ import (
 )
 
 func GetCommitsMessages(from string, to string) ([]string, error) {
-	o, err := exec.Exec("git", "log", "repomaster/v1.0.3-dev...HEAD", "--pretty=format:%%s")
+	o, err := exec.Exec("git", "log", "repomaster/v1.0.3-dev...HEAD", "--pretty=format:%s")
 	if err != nil {
 		return nil, err
 	}
