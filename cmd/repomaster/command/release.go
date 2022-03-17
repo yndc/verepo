@@ -11,6 +11,7 @@ import (
 
 func init() {
 	RootCmd.AddCommand(releaseCmd)
+	releaseCmd.SetUsageTemplate(usageTemplate())
 }
 
 var releaseCmd = &cobra.Command{

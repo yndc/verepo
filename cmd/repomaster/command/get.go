@@ -9,6 +9,7 @@ import (
 
 func init() {
 	RootCmd.AddCommand(getCmd)
+	getCmd.SetUsageTemplate(usageTemplate())
 }
 
 var getCmd = &cobra.Command{

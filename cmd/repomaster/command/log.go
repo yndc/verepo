@@ -13,6 +13,7 @@ func init() {
 	logCmd.Flags().Bool("fix", false, "")
 	logCmd.Flags().Bool("security", false, "")
 	logCmd.Flags().Bool("summary", false, "")
+	logCmd.SetUsageTemplate(usageTemplate())
 }
 
 var logCmd = &cobra.Command{

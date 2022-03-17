@@ -14,6 +14,7 @@ func init() {
 	bumpCmd.Flags().Bool("minor", false, "")
 	bumpCmd.Flags().Bool("major", false, "")
 	bumpCmd.Flags().StringP("prerelease", "p", "", "")
+	bumpCmd.SetUsageTemplate(usageTemplate())
 }
 
 var bumpCmd = &cobra.Command{

@@ -1,7 +1,7 @@
 package config
 
 type Container struct {
-	Build   []string `yaml:"build"`
+	App     string
 	DryRun  bool
 	Verbose bool
 }
