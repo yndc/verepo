@@ -62,41 +62,39 @@ func (d *Document) Write(path string, app string) error {
 	}
 	for _, section := range d.History {
 		vers = append(vers, section.Version)
-		if section.Count() > 0 {
-			w.WriteString("## [" + section.Version.String() + "] - " + section.Date + "\n\n")
-			w.WriteString(strings.Trim(section.Description, " \n"))
-			if len(section.Additions) > 0 {
-				w.WriteString("### Added\n\n")
-				for _, v := range section.Additions {
-					w.WriteString("- " + v + "\n")
-				}
-				w.WriteString("\n")
-				w.Flush()
+		w.WriteString("## [" + section.Version.String() + "] - " + section.Date + "\n\n")
+		w.WriteString(strings.Trim(section.Description, " \n"))
+		if len(section.Additions) > 0 {
+			w.WriteString("### Added\n\n")
+			for _, v := range section.Additions {
+				w.WriteString("- " + v + "\n")
 			}
-			if len(section.Fixes) > 0 {
-				w.WriteString("### Fixed\n\n")
-				for _, v := range section.Fixes {
-					w.WriteString("- " + v + "\n")
-				}
-				w.WriteString("\n")
-				w.Flush()
+			w.WriteString("\n")
+			w.Flush()
+		}
+		if len(section.Fixes) > 0 {
+			w.WriteString("### Fixed\n\n")
+			for _, v := range section.Fixes {
+				w.WriteString("- " + v + "\n")
 			}
-			if len(section.Changes) > 0 {
-				w.WriteString("### Changed\n\n")
-				for _, v := range section.Changes {
-					w.WriteString("- " + v + "\n")
-				}
-				w.WriteString("\n")
-				w.Flush()
+			w.WriteString("\n")
+			w.Flush()
+		}
+		if len(section.Changes) > 0 {
+			w.WriteString("### Changed\n\n")
+			for _, v := range section.Changes {
+				w.WriteString("- " + v + "\n")
 			}
-			if len(section.Removals) > 0 {
-				w.WriteString("### Removed\n\n")
-				for _, v := range section.Removals {
-					w.WriteString("- " + v + "\n")
-				}
-				w.WriteString("\n")
-				w.Flush()
+			w.WriteString("\n")
+			w.Flush()
+		}
+		if len(section.Removals) > 0 {
+			w.WriteString("### Removed\n\n")
+			for _, v := range section.Removals {
+				w.WriteString("- " + v + "\n")
 			}
+			w.WriteString("\n")
+			w.Flush()
 		}
 	}
 	w.Flush()
