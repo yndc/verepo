@@ -1,6 +1,15 @@
 # Changelog
 
-## [1.0.0] - 2022-03-17
+## [Unreleased]
+
+### Changed
+
+- asafsvsfvb
+- HISTORRYY
+
+### Removed
+
+- HISTORRYY
 
 ## [1.0.0] - 2022-03-17
 
@@ -70,6 +79,7 @@
 - ayy lmao
 - shit
 
+[unreleased]: https://github.com/flowscan/go-repomaster/compare/v0.0.10...HEAD
 [1.0.0]: https://github.com/flowscan/go-repomaster/compare/repomaster/v1.0.0...repomaster/v1.0.0
 [1.0.0]: https://github.com/flowscan/go-repomaster/compare/repomaster/v0.1.4...repomaster/v1.0.0
 [0.1.4]: https://github.com/flowscan/go-repomaster/compare/repomaster/v0.1.1...repomaster/v0.1.4
