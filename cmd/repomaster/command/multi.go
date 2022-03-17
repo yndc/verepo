@@ -9,7 +9,7 @@ import (
 )
 
 func init() {
-	multiCmd.Flags().Bool("list", false, "List all projects in this repository")
+	multiCmd.Flags().BoolP("list", "l", false, "List all projects in this repository")
 }
 
 var multiCmd = &cobra.Command{
@@ -18,25 +18,26 @@ var multiCmd = &cobra.Command{
 
 		return nil
 	},
+	DisableFlagParsing: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		projects, err := project.GetAll()
-		if list, _ := cmd.Flags().GetBool("list"); list {
-			if err != nil {
-				return err
-			}
-			if len(projects) > 0 {
-				fmt.Printf("projects:\n")
-				for _, a := range projects {
-					fmt.Printf("- %s:%s\n", a.ID, a.Version.String())
-				}
-			} else {
-				fmt.Println("no projects found in this repository")
-			}
-			return nil
+		if err != nil {
+			return fmt.Errorf("unable to list projects, make sure you're on the project root directory: %s", err.Error())
 		}
 		if len(args) == 0 {
 			return fmt.Errorf("<project> is required")
 		} else {
+			if args[0] == "--list" || args[0] == "-l" {
+				if len(projects) > 0 {
+					fmt.Printf("projects:\n")
+					for _, a := range projects {
+						fmt.Printf("- %s:%s\n", a.ID, a.Version.String())
+					}
+				} else {
+					fmt.Println("no projects found in this repository")
+				}
+				return nil
+			}
 			for _, project := range projects {
 				var childArgs []string
 				if project.ID == args[0] {
