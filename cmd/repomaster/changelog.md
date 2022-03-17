@@ -1,3 +1,19 @@
 # Changelog
 
-[repomaster/v0.0.8]: https://github.com/flowscan/go-repomaster/releases/tag/repomaster/v0.0.8
+## [Unreleased]
+
+### Added
+
+- im stuff
+- ayy lmao
+
+### Fixed
+
+- lol bugs bunny
+- lol bugs bunny
+
+### Changed
+
+- ayy lmao
+- shit
+
