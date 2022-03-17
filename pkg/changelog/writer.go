@@ -24,7 +24,7 @@ func (d *Document) Write(path string, project string) error {
 		w.WriteString("\n\n")
 		w.Flush()
 	}
-	if d.Unreleased.Count() > 0 {
+	if d.Unreleased.Count() > 0 || len(d.Unreleased.Description) > 0 {
 		w.WriteString("## [Unreleased]\n\n")
 		w.WriteString(strings.Trim(d.Unreleased.Description, " \n"))
 		if len(d.Unreleased.Additions) > 0 {

@@ -13,9 +13,9 @@ func init() {
 	RootCmd.AddCommand(logCmd)
 	logCmd.Flags().Bool("add", false, "")
 	logCmd.Flags().Bool("remove", false, "")
-	logCmd.Flags().Bool("deprecate", false, "")
+	// logCmd.Flags().Bool("deprecate", false, "")
 	logCmd.Flags().Bool("fix", false, "")
-	logCmd.Flags().Bool("security", false, "")
+	// logCmd.Flags().Bool("security", false, "")
 	logCmd.Flags().Bool("summary", false, "")
 	logCmd.Flags().Bool("commits", false, "")
 	logCmd.SetUsageTemplate(usageTemplate())
@@ -76,7 +76,7 @@ var logCmd = &cobra.Command{
 				doc.Unreleased.Fixes = append(doc.Unreleased.Fixes, msg)
 			} else if security, _ := cmd.Flags().GetBool("security"); security {
 				doc.Unreleased.Fixes = append(doc.Unreleased.Fixes, msg)
-			} else if security, _ := cmd.Flags().GetBool("summary"); security {
+			} else if summary, _ := cmd.Flags().GetBool("summary"); summary {
 				doc.Unreleased.Description = msg + "\n\n"
 			} else {
 				doc.Unreleased.Changes = append(doc.Unreleased.Changes, msg)
