@@ -16,6 +16,8 @@
 - Bug when this
 - Bug when this again
 - Updated tablesx
+- Fix buggs
+- lol bugs bunny
 
 ### Changed
 
