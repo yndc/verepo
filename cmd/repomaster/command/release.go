@@ -29,7 +29,8 @@ var releaseCmd = &cobra.Command{
 		}
 
 		// update the changelog
-		doc, err := changelog.Parse("./cmd/" + app + "/changelog.md")
+		changelogPath := "./cmd/" + app + "/changelog.md"
+		doc, err := changelog.Parse(changelogPath)
 		if err != nil {
 			doc = &changelog.Document{}
 		}
@@ -38,6 +39,10 @@ var releaseCmd = &cobra.Command{
 			Date:    time.Now().Format("2006-01-02"),
 			Section: doc.Unreleased,
 		}}, doc.History...)
+		err = doc.Write(changelogPath, app)
+		if err != nil {
+			return err
+		}
 
 		if err := git.ReleaseVersion(app, current); err != nil {
 			return err
