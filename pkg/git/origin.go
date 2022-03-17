@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/exec"
+	"github.com/yndc/verepo/pkg/exec"
 )
 
 func GetOrigin() string {

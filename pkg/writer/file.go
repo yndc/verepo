@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/config"
-	"github.com/flowscan/repomaster-go/pkg/repo"
+	"github.com/yndc/verepo/pkg/config"
+	"github.com/yndc/verepo/pkg/repo"
 )
 
 func File(relativePath string, contents []byte) error {

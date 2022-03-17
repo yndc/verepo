@@ -1,9 +1,10 @@
-module github.com/flowscan/repomaster-go
+module github.com/yndc/verepo
 
 go 1.17
 
 require (
 	github.com/spf13/cobra v1.3.0
+	golang.org/x/mod v0.5.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 

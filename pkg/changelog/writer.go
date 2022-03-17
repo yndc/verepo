@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/git"
-	"github.com/flowscan/repomaster-go/pkg/semver"
+	"github.com/yndc/verepo/pkg/git"
+	"github.com/yndc/verepo/pkg/semver"
 )
 
 func (d *Document) Write(path string, project string) error {

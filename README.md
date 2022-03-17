@@ -1,42 +1,58 @@
-# Repomaster
+# VeRepo
 
-A tool written in Golang to manage Go repositories that adheres the [standard project layout](https://github.com/golang-standards/project-layout).
+A simple tool written in Golang to manage project versioning and changelog.
 
-## List versions
+## Multi-mode
 
-Command: `repomaster list`
+`verepo` supports repositories with multiple projects in them. Currently it only supports Golang projects with `cmd/[project]` folder architecture.
 
-List all projects under the `cmd` folder with their versions stored in git tags.
+### List projects
 
-## Get version
+Command: `verepo --list`
 
-Command: `repomaster get <project>`
+List all projects under the `cmd` folder with their versions.
 
-Get the current version of the specified project
+### Get version
 
-## Setting pre-release tags 
+Command: `verepo <project> version`
 
-Command: `repomaster prerelease <project> <prerelease>`
+Get the current version of the specified project.
 
-Set the pre-release tag of the specified project, without touching the version.
+### Adding a new entry to the changelog 
 
-## Setting version
+Command: `verepo <project> log <message> [flags]`
 
-Sub-command: `repomaster set <project> <version> [parameters]`
+Flags:
+- `--add` 
+- `--fix` 
+- `--remove` 
 
-`-p --prerelease <name>`
+Add a new entry into the unreleased section of the changelog. By default, the message will be added into the `Changes` section. Use the flags to control which section should the log be placed.
+
+### Setting pre-release tags 
+
+Command: `verepo <project> prerelease <tag>`
+
+Set the pre-release tag of the specified project, without touching the version. The new pre-release version must be on a higher precedence than the current pre-release.
+
+### Setting version
+
+Sub-command: `verepo <project> set <version> [flags]`
+
+Flags:
+- `-p --prerelease <name>`
 
 Updates the version of the project to the provided semver version. Set the `--prerelease <name>` parameter to change the pre-release tag for this version.
 
-## Bumping version
+### Bumping version
 
-Command: `repomaster bump <project> <?level>`
+Command: `verepo <project> bump [flags]`
 
 This command will bump the version based on semver semantics. Without the `level` parameter set, it will bump only the patch version. Use `minor` to bump the minor version, `major` to bump the major version.
 
-## Releasing a version
+### Releasing a version
 
-Sub-command: `repomaster release <project>`
+Sub-command: `verepo <project> release`
 
 These actions will be executed:
 - Tag the current commit without any pre-release tags.

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/flowscan/repomaster-go/pkg/project"
+	"github.com/yndc/verepo/pkg/project"
 )
 
 func TestGetAll(t *testing.T) {

@@ -3,7 +3,7 @@ package changelog
 import (
 	"time"
 
-	"github.com/flowscan/repomaster-go/pkg/semver"
+	"github.com/yndc/verepo/pkg/semver"
 )
 
 type Document struct {

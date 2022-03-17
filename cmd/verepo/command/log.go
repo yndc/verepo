@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/changelog"
-	"github.com/flowscan/repomaster-go/pkg/git"
 	"github.com/spf13/cobra"
+	"github.com/yndc/verepo/pkg/changelog"
+	"github.com/yndc/verepo/pkg/git"
 )
 
 func init() {

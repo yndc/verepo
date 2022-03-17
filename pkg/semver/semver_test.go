@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/flowscan/repomaster-go/pkg/assert"
-	"github.com/flowscan/repomaster-go/pkg/semver"
+	"github.com/yndc/verepo/pkg/assert"
+	"github.com/yndc/verepo/pkg/semver"
 )
 
 func TestParseVersion(t *testing.T) {

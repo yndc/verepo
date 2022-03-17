@@ -3,11 +3,11 @@ package changelog_test
 import (
 	"testing"
 
-	"github.com/flowscan/repomaster-go/pkg/changelog"
+	"github.com/yndc/verepo/pkg/changelog"
 )
 
 func TestParser(t *testing.T) {
-	c, _ := changelog.Parse("../../cmd/" + "repomaster" + "/CHANGELOG.md")
+	c, _ := changelog.Parse("../../cmd/" + "verepo" + "/CHANGELOG.md")
 
 	c.Write("./omg.md", "ayy")
 }

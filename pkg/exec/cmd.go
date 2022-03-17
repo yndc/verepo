@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/config"
+	"github.com/yndc/verepo/pkg/config"
 )
 
 func Exec(name string, args ...string) ([]byte, error) {

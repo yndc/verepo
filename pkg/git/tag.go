@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/exec"
-	"github.com/flowscan/repomaster-go/pkg/semver"
+	"github.com/yndc/verepo/pkg/exec"
+	"github.com/yndc/verepo/pkg/semver"
 )
 
 func Latest(project string) semver.Parsed {

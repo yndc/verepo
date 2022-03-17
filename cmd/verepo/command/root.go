@@ -1,8 +1,8 @@
 package command
 
 import (
-	"github.com/flowscan/repomaster-go/pkg/config"
 	"github.com/spf13/cobra"
+	"github.com/yndc/verepo/pkg/config"
 )
 
 func init() {

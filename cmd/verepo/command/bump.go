@@ -3,10 +3,10 @@ package command
 import (
 	"fmt"
 
-	"github.com/flowscan/repomaster-go/pkg/config"
-	"github.com/flowscan/repomaster-go/pkg/git"
-	"github.com/flowscan/repomaster-go/pkg/semver"
 	"github.com/spf13/cobra"
+	"github.com/yndc/verepo/pkg/config"
+	"github.com/yndc/verepo/pkg/git"
+	"github.com/yndc/verepo/pkg/semver"
 )
 
 func init() {

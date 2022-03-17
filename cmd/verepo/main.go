@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/flowscan/repomaster-go/cmd/repomaster/command"
+	"github.com/yndc/verepo/cmd/verepo/command"
 )
 
 func main() {

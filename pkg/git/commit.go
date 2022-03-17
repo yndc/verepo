@@ -1,13 +1,14 @@
 package git
 
 import (
+	"fmt"
 	"strings"
 
-	"github.com/flowscan/repomaster-go/pkg/exec"
+	"github.com/yndc/verepo/pkg/exec"
 )
 
 func GetCommitsMessages(from string, to string) ([]string, error) {
-	o, err := exec.Exec("git", "log", "repomaster/v1.0.3-dev...HEAD", "--pretty=format:%s")
+	o, err := exec.Exec("git", "log", fmt.Sprintf("%s...%s", from, to), "--pretty=format:%s")
 	if err != nil {
 		return nil, err
 	}

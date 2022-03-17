@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/flowscan/repomaster-go/pkg/project"
 	"github.com/spf13/cobra"
+	"github.com/yndc/verepo/pkg/project"
 )
 
 func init() {

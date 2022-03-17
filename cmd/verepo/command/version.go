@@ -3,8 +3,8 @@ package command
 import (
 	"fmt"
 
-	"github.com/flowscan/repomaster-go/pkg/git"
 	"github.com/spf13/cobra"
+	"github.com/yndc/verepo/pkg/git"
 )
 
 func init() {

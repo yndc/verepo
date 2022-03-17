@@ -3,8 +3,8 @@ package project
 import (
 	"os"
 
-	"github.com/flowscan/repomaster-go/pkg/git"
-	"github.com/flowscan/repomaster-go/pkg/repo"
+	"github.com/yndc/verepo/pkg/git"
+	"github.com/yndc/verepo/pkg/repo"
 )
 
 // Get all applications in the repository
