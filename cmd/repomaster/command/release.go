@@ -35,7 +35,7 @@ var releaseCmd = &cobra.Command{
 			doc = &changelog.Document{}
 		}
 		doc.History = append([]changelog.HistoricalSection{{
-			Version: current,
+			Version: current.Version(),
 			Date:    time.Now().Format("2006-01-02"),
 			Section: doc.Unreleased,
 		}}, doc.History...)

@@ -98,6 +98,14 @@ func (p Parsed) String() string {
 	return b.String()
 }
 
+func (p Parsed) Version() Parsed {
+	return Parsed{
+		Major: p.Major,
+		Minor: p.Minor,
+		Patch: p.Patch,
+	}
+}
+
 func (p Parsed) VersionString() string {
 	return fmt.Sprintf("v%d.%d.%d", p.Major, p.Minor, p.Patch)
 }
