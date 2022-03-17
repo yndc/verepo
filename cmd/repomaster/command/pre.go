@@ -16,18 +16,18 @@ func init() {
 
 var preCmd = &cobra.Command{
 	Use:   "pre",
-	Short: "Set the prerelease for the specified app",
+	Short: "Set the prerelease for the specified project",
 	Args:  cobra.ExactArgs(2),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !config.Global.DryRun && git.HasUncommittedChanges() {
 			return fmt.Errorf("this command cannot be run with uncommitted changes")
 		}
-		app := args[0]
+		project := args[0]
 		targetP, err := semver.ParsePrerelease(args[1])
 		if err != nil {
 			return fmt.Errorf("invalid prerelease: %v", err)
 		}
-		current := git.Latest(app)
+		current := git.Latest(project)
 		if current.Invalid {
 			return fmt.Errorf("current version (%s) is invalid", current.String())
 		}
@@ -44,11 +44,11 @@ var preCmd = &cobra.Command{
 		next := current
 		next.Prerelease = targetP
 
-		if err := git.SetVersion(app, current, next); err != nil {
+		if err := git.SetVersion(project, current, next); err != nil {
 			return err
 		}
 
-		fmt.Printf("%s: %s -> %s\n", app, current.String(), next.String())
+		fmt.Printf("%s: %s -> %s\n", project, current.String(), next.String())
 
 		return nil
 	},

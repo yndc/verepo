@@ -6,37 +6,37 @@ A tool written in Golang to manage Go repositories that adheres the [standard pr
 
 Command: `repomaster list`
 
-List all applications under the `cmd` folder with their versions stored in git tags.
+List all projects under the `cmd` folder with their versions stored in git tags.
 
 ## Get version
 
-Command: `repomaster get <application>`
+Command: `repomaster get <project>`
 
-Get the current version of the specified app
+Get the current version of the specified project
 
 ## Setting pre-release tags 
 
-Command: `repomaster prerelease <application> <prerelease>`
+Command: `repomaster prerelease <project> <prerelease>`
 
-Set the pre-release tag of the specified application, without touching the version.
+Set the pre-release tag of the specified project, without touching the version.
 
 ## Setting version
 
-Sub-command: `repomaster set <application> <version> [parameters]`
+Sub-command: `repomaster set <project> <version> [parameters]`
 
 `-p --prerelease <name>`
 
-Updates the version of the application to the provided semver version. Set the `--prerelease <name>` parameter to change the pre-release tag for this version.
+Updates the version of the project to the provided semver version. Set the `--prerelease <name>` parameter to change the pre-release tag for this version.
 
 ## Bumping version
 
-Command: `repomaster bump <application> <?level>`
+Command: `repomaster bump <project> <?level>`
 
 This command will bump the version based on semver semantics. Without the `level` parameter set, it will bump only the patch version. Use `minor` to bump the minor version, `major` to bump the major version.
 
 ## Releasing a version
 
-Sub-command: `repomaster release <application>`
+Sub-command: `repomaster release <project>`
 
 These actions will be executed:
 - Tag the current commit without any pre-release tags.

@@ -14,7 +14,7 @@ func init() {
 
 var getCmd = &cobra.Command{
 	Use:   "get",
-	Short: "Get the latest version of the given app ID in the repository",
+	Short: "Get the latest version of the given project ID in the repository",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		v := git.Latest(args[0])

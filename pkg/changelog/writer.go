@@ -9,7 +9,7 @@ import (
 	"github.com/flowscan/repomaster-go/pkg/semver"
 )
 
-func (d *Document) Write(path string, app string) error {
+func (d *Document) Write(path string, project string) error {
 	f, err := os.Create(path)
 	if err != nil {
 		return err
@@ -106,9 +106,9 @@ func (d *Document) Write(path string, app string) error {
 	}
 	for i, v := range vers {
 		if i < len(vers)-1 {
-			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/compare/" + formatVersion(app, vers[i+1]) + "..." + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/compare/" + formatVersion(project, vers[i+1]) + "..." + formatVersion(project, v) + "\n")
 		} else {
-			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/releases/tag/" + formatVersion(app, v) + "\n")
+			w.WriteString("[" + v.VersionStringNoV() + "]: " + origin + "/releases/tag/" + formatVersion(project, v) + "\n")
 		}
 		w.Flush()
 	}
@@ -116,6 +116,6 @@ func (d *Document) Write(path string, app string) error {
 	return nil
 }
 
-func formatVersion(app string, version semver.Parsed) string {
-	return app + "/" + version.String()
+func formatVersion(project string, version semver.Parsed) string {
+	return project + "/" + version.String()
 }

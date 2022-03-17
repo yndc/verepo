@@ -18,13 +18,13 @@ func init() {
 
 var logCmd = &cobra.Command{
 	Use:   "log",
-	Short: "Log a new entry into the app's changelog",
+	Short: "Log a new entry into the project's changelog",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		app := args[0]
+		project := args[0]
 		msg := args[1]
 
-		doc, err := changelog.Parse("./cmd/" + app + "/changelog.md")
+		doc, err := changelog.Parse("./cmd/" + project + "/changelog.md")
 		if err != nil {
 			doc = &changelog.Document{}
 		}
@@ -45,6 +45,6 @@ var logCmd = &cobra.Command{
 			doc.Unreleased.Changes = append(doc.Unreleased.Changes, msg)
 		}
 
-		doc.Write("./cmd/"+app+"/changelog.md", app)
+		doc.Write("./cmd/"+project+"/changelog.md", project)
 	},
 }

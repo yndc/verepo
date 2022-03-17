@@ -1,4 +1,4 @@
-package app
+package project
 
 import (
 	"os"
@@ -8,13 +8,13 @@ import (
 )
 
 // Get all applications in the repository
-func GetAll() ([]App, error) {
+func GetAll() ([]Project, error) {
 	folders, err := os.ReadDir(repo.GetBasePath() + "/cmd")
 	if err != nil {
 		return nil, err
 	}
 
-	apps := make([]App, 0)
+	projects := make([]Project, 0)
 
 	for _, v := range folders {
 		files, err := os.ReadDir(repo.GetBasePath() + "/cmd/" + v.Name())
@@ -33,7 +33,7 @@ func GetAll() ([]App, error) {
 			continue
 		}
 
-		app := App{
+		project := Project{
 			ID:      v.Name(),
 			Version: git.Latest(v.Name()),
 		}
@@ -41,8 +41,8 @@ func GetAll() ([]App, error) {
 			return nil, err
 		}
 
-		apps = append(apps, app)
+		projects = append(projects, project)
 	}
 
-	return apps, nil
+	return projects, nil
 }

@@ -19,14 +19,14 @@ func init() {
 
 var bumpCmd = &cobra.Command{
 	Use:   "bump",
-	Short: "Bump the version of the given app ID in the repository",
+	Short: "Bump the project version",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if !config.Global.DryRun && git.HasUncommittedChanges() {
 			return fmt.Errorf("this command cannot be run with uncommitted changes")
 		}
-		app := args[0]
-		current := git.Latest(app)
+		project := args[0]
+		current := git.Latest(project)
 		var next semver.Parsed
 		if major, _ := cmd.Flags().GetBool("major"); major {
 			next = current.BumpMajor()
@@ -46,11 +46,11 @@ var bumpCmd = &cobra.Command{
 			next.Prerelease = []string{"dev"}
 		}
 
-		if err := git.SetVersion(app, current, next); err != nil {
+		if err := git.SetVersion(project, current, next); err != nil {
 			return err
 		}
 
-		fmt.Printf("%s: %s -> %s\n", app, current.String(), next.String())
+		fmt.Printf("%s: %s -> %s\n", project, current.String(), next.String())
 
 		return nil
 	},

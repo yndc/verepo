@@ -8,8 +8,8 @@ import (
 	"github.com/flowscan/repomaster-go/pkg/semver"
 )
 
-func Latest(app string) semver.Parsed {
-	o, err := exec.Exec("git", "tag", "-l", app+"/*")
+func Latest(project string) semver.Parsed {
+	o, err := exec.Exec("git", "tag", "-l", project+"/*")
 	if err != nil {
 		return semver.Zero()
 	}
@@ -20,7 +20,7 @@ func Latest(app string) semver.Parsed {
 	return semver.Zero()
 }
 
-func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {
+func SetVersion(project string, from semver.Parsed, to semver.Parsed) error {
 	if from.Invalid {
 		return fmt.Errorf("current version (%s) is invalid", from.String())
 	}
@@ -31,7 +31,7 @@ func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {
 		return fmt.Errorf("pre-release tag is required for the target version (%s)", to.String())
 	}
 
-	tag := fmt.Sprintf(`%s/%s`, app, to.String())
+	tag := fmt.Sprintf(`%s/%s`, project, to.String())
 
 	exec.SeqExec([][]string{
 		{"git", "tag", tag},
@@ -41,14 +41,14 @@ func SetVersion(app string, from semver.Parsed, to semver.Parsed) error {
 	return nil
 }
 
-func ReleaseVersion(app string, current semver.Parsed) error {
+func ReleaseVersion(project string, current semver.Parsed) error {
 	if current.Invalid {
 		return fmt.Errorf("current version (%s) is invalid", current.String())
 	}
 
 	current.Prerelease = semver.Prerelease{}
 
-	tag := fmt.Sprintf(`%s/%s`, app, current.String())
+	tag := fmt.Sprintf(`%s/%s`, project, current.String())
 
 	exec.SeqExec([][]string{
 		{"git", "tag", tag},

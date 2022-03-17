@@ -6,9 +6,9 @@ import (
 )
 
 func usageTemplate() string {
-	var app string
+	var project string
 	if len(os.Args) > 1 {
-		app = os.Args[1]
+		project = os.Args[1]
 
 	}
 	return fmt.Sprintf(`Usage:
@@ -33,6 +33,6 @@ Additional help topics:{{range .Commands}}{{if .IsAdditionalHelpTopicCommand}}
 {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
 
 Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
-`, app,
+`, project,
 	)
 }
