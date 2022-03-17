@@ -14,6 +14,7 @@
 
 - Release repomaster/v1.0.3
 - TRYING TO MAKE HISTORY
+- Changed 'get' to 'version'
 
 ### Removed
 
