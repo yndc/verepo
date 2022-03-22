@@ -16,7 +16,10 @@ func GetCommitsMessages(from string, to string) ([]string, error) {
 }
 
 func Commit(m string) error {
-	_, err := exec.Exec("git", "commit", "-a", "-m", m)
+	_, err := exec.SeqExec([][]string{
+		{"git", "add", "."},
+		{"git", "commit", "-a", "-m", m},
+	})
 	if err != nil {
 		return err
 	}
