@@ -13,7 +13,7 @@ func init() {
 }
 
 var multiCmd = &cobra.Command{
-	Use: "repomaster <project> <command>",
+	Use: "verepo <project> <command>",
 	Args: func(cmd *cobra.Command, args []string) error {
 
 		return nil
